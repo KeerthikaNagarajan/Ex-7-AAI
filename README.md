@@ -1,8 +1,11 @@
-<H4>Keerthika N</H4>
-<H4>212221230049</H4>
-<H4>EX. NO.7</H4>
-<H4>DATE: 21.10.24</H4>
-<H1 ALIGN =CENTER>Implementation of Text  Summarization</H1>
+## Date: 21.10.24
+
+<h1 align="center">  
+   Experiment 7: Implementation of Text  Summarization
+</h1>  
+
+### Name: Keerthika N
+### Register Number: 212221230049
 
 ## Aim: 
 To perform automatic text summarization using Natural Language Processing (NLP) techniques. 
@@ -25,6 +28,7 @@ Construct the main program to read the paragraph  and perform text summarization
       - Generate and print the text summary using the  Text Summarization function<br>
 ## Program:
 ```py
+
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize,sent_tokenize
@@ -81,8 +85,7 @@ print(summary)
 
 ## Output:
 
-![image](https://github.com/user-attachments/assets/cec9d6f7-810d-4932-82a7-d3660c04abc1)
-
+![Screenshot 2024-11-08 at 4 23 05 PM](https://github.com/user-attachments/assets/8d3bf17f-b39e-4ad5-95fd-6dde9419310e)
 
 ## Result:
 Thus ,the program to perform the Text summarization is executed sucessfully.
