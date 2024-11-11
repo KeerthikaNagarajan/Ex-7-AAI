@@ -1,4 +1,4 @@
-## Date: 13.09.24
+## Date: 13.09.2024
 
 <h1 align="center">  
    Experiment 7: Implementation of Text  Summarization
