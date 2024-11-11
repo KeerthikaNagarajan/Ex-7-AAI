@@ -31,63 +31,64 @@ Construct the main program to read the paragraph  and perform text summarization
 
 import nltk
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize,sent_tokenize
+from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import PorterStemmer
-nltk.download( 'punkt' )
-nltk.download( 'stopwords' )
+nltk.download('punkt')
+nltk.download('stopwords')
 
 def preprocess_text(text):
-	# Tokenize the text into words
-	words = word_tokenize(text)
-	# Remove stopwords and punctuation
-	stop_words= set(stopwords.words( 'english'))
-	filtered_words= [word for word in words if word. lower() not in stop_words and word.isalnum()]
+    # Tokenize the text into words
+    words = word_tokenize(text)
+    # Remove stopwords and punctuation
+    stop_words = set(stopwords.words('english'))
+    filtered_words = [word for word in words if word.lower() not in stop_words and word.isalnum()]
 
-	# Stemming
-	stemmer = PorterStemmer()
+    # Stemming
+    stemmer = PorterStemmer()
+    stemmed_words = [stemmer.stem(word) for word in filtered_words]
+    return stemmed_words
 
-	stemmed_words= [stemmer. stem(word) for word in filtered_words]
-	return stemmed_words
+def generate_summary(text, num_sentences=3):
+    sentences = sent_tokenize(text)
+    preprocessed_text = preprocess_text(text)
+    # Calculate the frequency of each word
+    word_frequencies = nltk.FreqDist(preprocessed_text)
 
-def generate_summary(text,num_sentences=3):
-	sentences= sent_tokenize(text)
-	preprocessed_text = preprocess_text(text)
-	# Calculate the frequency of each word
-	word_frequencies =nltk. FreqDist (preprocessed_text)
+    # Calculate the score for each sentence based on word frequency
+    sentence_scores = {}
+    for sentence in sentences:
+        for word, freq in word_frequencies.items():
+            if word in sentence.lower():
+                if sentence not in sentence_scores:
+                    sentence_scores[sentence] = freq
+                else:
+                    sentence_scores[sentence] += freq
+    # Select top N sentences with highest scores
+    summary_sentences = sorted(sentence_scores, key=sentence_scores.get, reverse=True)[:num_sentences]
 
-	# Calculate the score for each sentence based on word frequency
-	sentence_scores ={}
-	for sentence in sentences:
-		for word, freq in word_frequencies.items():
-			if word in sentence.lower():
-				if sentence not in sentence_scores:
-					sentence_scores[sentence] = freq
-				else:
-					sentence_scores[sentence]+= freq
-	# Select top N sentences with highest scores
-	summary_sentences= sorted(sentence_scores, key=sentence_scores.get,reverse=True) [ : num_sentences]
+    return ' '.join(summary_sentences)
 
-	return ' '. join(summary_sentences)
+if __name__ == "__main__":
+    # Read input from a file
+    file_path = "sample.txt"
+    with open(file_path, 'r') as file:
+        input_text = file.read()
+        
+    summary = generate_summary(input_text)
+    print("Original Text:")
+    print(input_text)
+    print("\nSummary:")
+    print(summary)
 
-if __name__=="__main__":
-	input_text ="""
-	Natural language processing (NLP) is a subfield of artificial intelligence.
-	It involves the development of algorithms and models that enact NLP.
-	NLP is used in various applications, including chatbots, language Understanding, and language generation.
-	This program demonstrates a simple text summarization using NLP"""
-summary = generate_summary(input_text)
-print("Origina1 Text: ")
-print (input_text )
-print( " \nSummary : " )
-print(summary)
 
 ```
+## Sample Input File:
+![Screenshot 2024-11-11 at 2 50 20 PM](https://github.com/user-attachments/assets/5ef2555c-ec71-495a-b63e-edc23a80849d)
 
 ## Output:
-
-![Screenshot 2024-11-08 at 4 23 05 PM](https://github.com/user-attachments/assets/8d3bf17f-b39e-4ad5-95fd-6dde9419310e)
+![Screenshot 2024-11-11 at 2 50 31 PM](https://github.com/user-attachments/assets/1bce4642-323c-45c9-a5ad-741916aacbfb)
 
 ## Result:
-Thus ,the program to perform the Text summarization is executed sucessfully.
+Thus, the program to perform the Text summarization is executed sucessfully.
 
 
